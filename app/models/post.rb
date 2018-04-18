@@ -5,3 +5,12 @@ class Post < ActiveRecord::Base
   validates :category, inclusion: { in: %w(Fiction Non-Fiction),
    message: "%{value} is not a valid category" }
 end
+
+
+class MyValidator < ActiveModel::Validator
+  def validate(record)
+    unless record.title "Won't Believe", "Secret", "Top [number]", "Guess"
+      record.errors[:title] << 'Choose names!'
+    end
+  end
+end
