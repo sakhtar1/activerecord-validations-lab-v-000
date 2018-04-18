@@ -4,14 +4,13 @@ class Post < ActiveRecord::Base
   validates :summary, length: { maximum: 250 }
   validates :category, inclusion: { in: %w(Fiction Non-Fiction),
    message: "%{value} is not a valid category" }
-  validates_with MyValidator
-end
+  validates_with validate
 
-
-class MyValidator < ActiveModel::Validator
   def validate(record)
     unless record.title "Won't Believe", "Secret", "Top [number]", "Guess"
       record.errors[:title] << 'Choose names!'
     end
   end
 end
+
+
